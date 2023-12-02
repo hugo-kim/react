@@ -1,10 +1,64 @@
+/* eslint-disable no-undef */
 import './App.css';
+import { useState } from 'react';
+
+// function Counter(props) {
+//   let countState = useState(props.initValue);
+//   let count = countState[0];//읽은 값
+//   let setCount = countState[1];//바꿀때 사용할 값(현재미정)
+//   console.log('count2',countState); //바뀌어진 값 출력
+
+//   function up() {//증가버튼이 눌러지면 countState[0]에 1 증가
+//     //count = count + 1;
+//     setCount(count + 1);//old값과 현재값 비교=>변화가 있을시만 작동(함수 rendering됨.)=>countState[1]값 변경
+//     console.log('count1', countState);//이전 값을 출력
+
+//   }
+
+//   return (
+//     <div>
+//       <h4>{props.title}</h4>
+//       <button onClick={up}>+</button> {count}
+//     </div>
+//   );
+// }
+
+function Counter({ title, initValue }) {
+  // let countState = useState(initValue);
+  // let count = countState[0];//읽은 값
+  // let setCount = countState[1];//바꿀때 사용할 값(현재미정)
+  const [count, setCount] = useState(initValue);
+  //count useState함수 결과값의 첫번째 원소값이 있는 위치 주소를 가르킨다. 포인터변수라 생각해 보자.
+  const [step, setStep] = useState(1);
+
+  function up() {//증가버튼이 눌러지면 countState[0]에 1 증가
+    //count = count + 1;
+    setCount(count + step);//old값과 현재값 비교=>변화가 있을시만 작동(함수 rendering됨.)=>countState[1]값 변경
+    // setCount(step);
+  }
+
+  const sepHandler = (evt) => {
+    console.log('change', typeof (evt.target.value));
+    setStep(Number(evt.target.value));
+  };
+
+  return (
+    <div>
+      <h4>{title}</h4>
+      <button onClick={up}>+</button>
+      <input type="number" value={step} onChange={sepHandler} />
+      {count}
+    </div>
+  );
+}
 
 function App() {
   return (
     <div>
-      <h1>Counter</h1>
-      <button>+</button> 0
+      <h2>XENOSYS CO. LTD.</h2>
+      <Counter title="신규주문 카운터" initValue={10} />
+      {/* <Counter title="수리의뢰 카운터" initValue={20} /> */}
+
     </div>
   );
 }
