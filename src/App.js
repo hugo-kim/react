@@ -2,27 +2,6 @@
 import './App.css';
 import { useState } from 'react';
 
-// function Counter(props) {
-//   let countState = useState(props.initValue);
-//   let count = countState[0];//읽은 값
-//   let setCount = countState[1];//바꿀때 사용할 값(현재미정)
-//   console.log('count2',countState); //바뀌어진 값 출력
-
-//   function up() {//증가버튼이 눌러지면 countState[0]에 1 증가
-//     //count = count + 1;
-//     setCount(count + 1);//old값과 현재값 비교=>변화가 있을시만 작동(함수 rendering됨.)=>countState[1]값 변경
-//     console.log('count1', countState);//이전 값을 출력
-
-//   }
-
-//   return (
-//     <div>
-//       <h4>{props.title}</h4>
-//       <button onClick={up}>+</button> {count}
-//     </div>
-//   );
-// }
-
 function Counter({ title, initValue }) {
   // let countState = useState(initValue);
   // let count = countState[0];//읽은 값
@@ -30,11 +9,13 @@ function Counter({ title, initValue }) {
   const [count, setCount] = useState(initValue);
   //count useState함수 결과값의 첫번째 원소값이 있는 위치 주소를 가르킨다. 포인터변수라 생각해 보자.
   const [step, setStep] = useState(1);
+  const [history, setHistory] = useState([]);
 
   function up() {//증가버튼이 눌러지면 countState[0]에 1 증가
-    //count = count + 1;
-    setCount(count + step);//old값과 현재값 비교=>변화가 있을시만 작동(함수 rendering됨.)=>countState[1]값 변경
-    // setCount(step);
+    const newCount = count + step;
+    setCount(newCount);//old값과 현재값 비교=>변화가 있을시만 작동(함수 rendering됨.)=>countState[1]값 변경
+    history.push(newCount);
+    setHistory(history)
   }
 
   const sepHandler = (evt) => {
@@ -48,6 +29,13 @@ function Counter({ title, initValue }) {
       <button onClick={up}>+</button>
       <input type="number" value={step} onChange={sepHandler} />
       {count}
+      <ol>
+        {/* {[<li>5</li>,<li>5</li>]} */}
+        {history.map((e, index) => {
+          return <li key={index}>{e}</li>
+        })}
+
+      </ol>
     </div>
   );
 }
