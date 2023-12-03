@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Counter({ title, initValue }) {
   // let countState = useState(initValue);
@@ -41,11 +41,36 @@ function Counter({ title, initValue }) {
   );
 }
 
+function CounterUseEffect() {
+  const [count, setCount] = useState(0);
+  console.log('CounterUseEffect', count);
+
+  useEffect(() => {
+    console.log('useEffect');
+    setInterval(() => {
+      console.log('interval');
+      setCount(oldCount => oldCount + 1);
+    }, 1000)
+    // return (() => {
+    //   console.log('clean');
+    //   clearInterval(id);
+    // })
+  }, []);
+
+  return (
+    <div>
+      <h1>useEffect Counter</h1>{count}
+    </div>
+  )
+}
+
 function App() {
   return (
     <div>
       <h2>XENOSYS CO. LTD.</h2>
       <Counter title="신규주문 카운터" initValue={10} />
+      <CounterUseEffect />
+
       {/* <Counter title="수리의뢰 카운터" initValue={20} /> */}
 
     </div>
