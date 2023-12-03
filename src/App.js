@@ -14,20 +14,21 @@ function Counter({ title, initValue }) {
   function up() {//증가버튼이 눌러지면 countState[0]에 1 증가
     const newCount = count + step;
     setCount(newCount);//old값과 현재값 비교=>변화가 있을시만 작동(함수 rendering됨.)=>countState[1]값 변경
-    history.push(newCount);
-    setHistory(history)
+    const newHistory = [...history]; //복사본 만들기
+    newHistory.push(newCount);
+    setHistory(newHistory);
   }
 
-  const sepHandler = (evt) => {
-    console.log('change', typeof (evt.target.value));
+  const stepHandler = (evt) => {
+    // console.log('change', typeof (evt.target.value));
     setStep(Number(evt.target.value));
   };
 
   return (
     <div>
       <h4>{title}</h4>
-      <button onClick={up}>+</button>
-      <input type="number" value={step} onChange={sepHandler} />
+      <button onClick={up}>+/-</button>
+      <input type="number" value={step} onChange={stepHandler} />
       {count}
       <ol>
         {/* {[<li>5</li>,<li>5</li>]} */}
