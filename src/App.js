@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import './App.css';
 import { useState, useEffect } from 'react';
+import { Container } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 function Counter({ title, initValue }) {
   // let countState = useState(initValue);
@@ -24,8 +26,9 @@ function Counter({ title, initValue }) {
     setStep(Number(evt.target.value));
   };
 
+  const style = { border: '5px solid black', padding: 10, backgroundColor: 'tomato' };
   return (
-    <div>
+    <div style={style}>
       <h4>{title}</h4>
       <button onClick={up}>+/-</button>
       <input type="number" value={step} onChange={stepHandler} />
@@ -56,9 +59,9 @@ function CounterUseEffect() {
     //   clearInterval(id);
     // })
   }, []);
-
+  const style = { border: '5px solid black', padding: 10 };
   return (
-    <div>
+    <div style={style}>
       <h1>useEffect Counter</h1>{count}
     </div>
   )
@@ -66,14 +69,25 @@ function CounterUseEffect() {
 
 function App() {
   return (
-    <div>
+    <Container>
       <h2>XENOSYS CO. LTD.</h2>
-      <Counter title="신규주문 카운터" initValue={10} />
-      <CounterUseEffect />
+      <Grid container>
+        <Grid item={12} sm={6} md={3}>
+          <Counter title="신규주문 카운터" initValue={10} />
+        </Grid>
+        <Grid item={12} sm={6} md={3}>
+          <CounterUseEffect />
+        </Grid>
+        <Grid item={12} sm={6} md={3}>
+          <CounterUseEffect />
+        </Grid>
+        <Grid item={12} sm={6} md={3}>
+          <CounterUseEffect />
+        </Grid>
 
-      {/* <Counter title="수리의뢰 카운터" initValue={20} /> */}
+      </Grid>
 
-    </div>
+    </Container>
   );
 }
 
